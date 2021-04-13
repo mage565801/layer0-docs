@@ -1,0 +1,15 @@
+name: Run Algolia Crawl
+on: push
+jobs:
+  publish-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: npm ci
+      - name: Crawl Docs
+        run: |
+          docker run \
+          -e APPLICATION_ID=${{ secrets.ALGOLIA_APP_ID }} \
+          -e API_KEY=${{ secrets.ALGOLIA_API_KEY }} \
+          -e CONFIG="$(cat ./docs.config.json | jq -r tostring)" \
+          algolia/docsearch-scraper
