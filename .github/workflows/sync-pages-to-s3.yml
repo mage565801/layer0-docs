@@ -31,7 +31,7 @@ jobs:
       - name: Deploy static site to S3 bucket
         run: |
           cd pages-repo
-          aws s3 rm s3://layer0-docs --recursive
+          aws s3 rm s3://layer0-docs --recursive --quiet
           aws s3 sync . s3://layer0-docs --delete
       # - name: Crawl Docs
       #   run: |
